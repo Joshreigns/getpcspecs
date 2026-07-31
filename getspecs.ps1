@@ -425,7 +425,6 @@ $Inventory.Windows = [ordered]@{
 # -------------------------------
 
 $BIOS = Get-CimInstance Win32_BIOS
-$Motherboard = Get-CimInstance Win32_BaseBoard
 
 
 $Inventory.BIOS = [ordered]@{
@@ -437,10 +436,6 @@ $Inventory.BIOS = [ordered]@{
     ReleaseDate = $BIOS.ReleaseDate
 
     SerialNumber = $BIOS.SerialNumber
-
-    MotherboardSerialNumber = $Motherboard.SerialNumber
-
-    
 
 }
 
@@ -1519,7 +1514,7 @@ Serial Number
 </div>
 
 <div class="value">
-$Motherboard = $Motherboard.SerialNumber
+$($Inventory.BIOS.SerialNumber)
 </div>
 
 </div>
@@ -1533,19 +1528,12 @@ Operating System
 </div>
 
 <div class="value">
-$($Inventory.Windows.Caption) - $($Inventory.Windows.Architecture)
+$($Inventory.Windows.Caption) $($Inventory.Windows.Architecture)
 </div>
-
 </div>
-
-
 </div>
-
-
 </div>
-
 </div>
-
 "@
 
 
