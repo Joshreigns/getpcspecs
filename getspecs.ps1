@@ -435,8 +435,6 @@ $Inventory.BIOS = [ordered]@{
 
     ReleaseDate = $BIOS.ReleaseDate
 
-    SerialNumber = $BIOS.SerialNumber
-
 }
 
 
