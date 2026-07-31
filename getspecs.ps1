@@ -401,22 +401,7 @@ $Inventory.Computer = [ordered]@{
 # Operating System
 # -------------------------------
 
-$OS = Get-CimInstance Win32_OperatingSystem
 
-
-$Inventory.Windows = [ordered]@{
-
-    Caption = $OS.Caption
-
-    Version = $OS.Version
-
-    Build = $OS.BuildNumber
-
-    Architecture = $OS.OSArchitecture
-
-    InstallDate = $OS.InstallDate
-
-}
 
 
 
