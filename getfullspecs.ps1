@@ -706,11 +706,12 @@ $Inventory.Network = @()
 
 
 
-$Adapters =
-Get-NetAdapter |
-Where-Object {
-    $_.Status -eq "Up"
-}
+    $Adapters =
+    Get-NetAdapter |
+    Where-Object {
+    $_.Status -eq "Up" -and
+    $_.HardwareInterface -eq $true
+    }
 
 
 
@@ -725,11 +726,23 @@ foreach ($Adapter in $Adapters)
 
 
 
-    $Gateway =
-    Get-NetRoute `
-    -InterfaceIndex $Adapter.ifIndex `
-    -DestinationPrefix "0.0.0.0/0" |
-    Select-Object -First 1
+    $Gateway = $null
+
+    try
+    {
+
+        $Gateway =
+        Get-NetRoute `
+        -InterfaceIndex $Adapter.ifIndex `
+        -DestinationPrefix "0.0.0.0/0" `
+        -ErrorAction SilentlyContinue |
+        Select-Object -First 1
+
+    }
+    catch
+    {
+
+    }
 
 
 
@@ -758,8 +771,12 @@ foreach ($Adapter in $Adapters)
             $AdapterIP.IPAddress
 
         Gateway =
-            $Gateway.NextHop
-
+            if ($Gateway) {
+                $Gateway.NextHop
+            }
+            else {
+                "None"
+            }
         DNS =
             ($DNS -join ", ")
 
