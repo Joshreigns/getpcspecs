@@ -12,7 +12,7 @@ Clear-Host
 # Script Location
 # -------------------------------
 
-$ScriptPath = "C:\ComputerInventory"
+$ScriptPath = "C:\"
 
 if (!(Test-Path $ScriptPath)) {
     New-Item -Path $ScriptPath -ItemType Directory | Out-Null
