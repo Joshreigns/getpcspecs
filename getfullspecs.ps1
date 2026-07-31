@@ -698,56 +698,6 @@ foreach ($Disk in $Disks)
 
 
 # ============================================================
-# DISK PARTITIONS
-# ============================================================
-
-
-$Inventory.Partitions = @()
-
-
-$Partitions =
-Get-CimInstance Win32_LogicalDisk |
-Where-Object {
-    $_.DriveType -eq 3
-}
-
-
-
-foreach ($Partition in $Partitions)
-{
-
-    $Inventory.Partitions += [ordered]@{
-
-        Drive =
-            $Partition.DeviceID
-
-        FileSystem =
-            $Partition.FileSystem
-
-        Size =
-            Convert-Size $Partition.Size
-
-        FreeSpace =
-            Convert-Size $Partition.FreeSpace
-
-        $UsedPercent =
-        (
-            (
-                $Partition.Size -
-                $Partition.FreeSpace
-            ) /
-            $Partition.Size *
-            100
-        ).ToString("N1") + "%"
-
-    }
-
-}
-
-
-
-
-# ============================================================
 # NETWORK ADAPTER INFORMATION
 # ============================================================
 
