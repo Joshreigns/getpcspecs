@@ -1633,7 +1633,9 @@ Operating System
 </div>
 
 <div class="value">
-$($Inventory.Windows.Caption) $($Inventory.Windows.Architecture)
+$($Inventory.Windows.Caption)
+<br>
+$($Inventory.Windows.Architecture)
 </div>
 
 </div>
@@ -1655,12 +1657,6 @@ $($Inventory.Office.Architecture)
 </div>
 
 </div>
-
-</div>
-</div>
-</div>
-"@
-
 
 
 
