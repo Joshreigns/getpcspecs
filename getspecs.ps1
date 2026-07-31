@@ -730,18 +730,15 @@ foreach ($Partition in $Partitions)
         FreeSpace =
             Convert-Size $Partition.FreeSpace
 
-        UsedPercent =
+        $UsedPercent =
+        (
             (
-            (
-            $Partition.Size -
-            $Partition.FreeSpace
-            ))
-
-            /
-            $Partition.Size
-            *
+                $Partition.Size -
+                $Partition.FreeSpace
+            ) /
+            $Partition.Size *
             100
-            ).ToString("N1") + "%"
+        ).ToString("N1") + "%"
 
     }
 
