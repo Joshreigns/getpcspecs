@@ -735,7 +735,8 @@ foreach ($Partition in $Partitions)
             (
             $Partition.Size -
             $Partition.FreeSpace
-            )
+            ))
+
             /
             $Partition.Size
             *
