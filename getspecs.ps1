@@ -1537,6 +1537,17 @@ $($Inventory.Windows.Caption)
 </div>
 
 </div>
+<div class="item">
+
+<div class="label">
+OS Architecture
+</div>
+
+<div class="value">
+$($Inventory.Windows.Architecture)
+</div>
+
+</div>
 
 "@
 
