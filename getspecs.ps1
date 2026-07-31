@@ -1529,7 +1529,6 @@ Operating System
 
 <div class="value">
 $($Inventory.Windows.Caption)
-$($Inventory.Windows.Architecture)
 </div>
 
 </div>
