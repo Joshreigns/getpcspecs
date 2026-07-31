@@ -1510,11 +1510,11 @@ $($Inventory.Computer.Username)
 <div class="item">
 
 <div class="label">
-Serial Number
+Motherboard Serial Number
 </div>
 
 <div class="value">
-$($Inventory.BIOS.SerialNumber)
+$($Inventory.Motherboard.SerialNumber)
 </div>
 
 </div>
