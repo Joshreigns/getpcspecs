@@ -12,11 +12,7 @@ Clear-Host
 # Script Location
 # -------------------------------
 
-$ScriptPath = Split-Path -Parent $MyInvocation.MyCommand.Path
-
-if (-not $ScriptPath) {
-    $ScriptPath = Get-Location
-}
+$ScriptPath = $env:TEMP
 
 $ComputerName = $env:COMPUTERNAME
 
@@ -344,7 +340,7 @@ tr:hover {
 <div class="header">
 
 <h1>
-ðŸ–¥ Computer Inventory Report
+Ã°Å¸â€“Â¥ Computer Inventory Report
 </h1>
 
 <p>
@@ -1420,7 +1416,7 @@ $HTML += @"
 <div class="card">
 
 <div class="card-title">
-📌 System Summary
+System Summary
 </div>
 
 
@@ -1530,7 +1526,7 @@ $HTML += @"
 <div class="card">
 
 <div class="card-title">
-⚙ CPU Information
+CPU Information
 </div>
 
 
@@ -1589,7 +1585,7 @@ $HTML += @"
 <div class="card">
 
 <div class="card-title">
-🧠 Memory Information
+Memory Information
 </div>
 
 
@@ -1651,7 +1647,7 @@ $HTML += @"
 <div class="card">
 
 <div class="card-title">
-💾 Storage Devices
+Storage Devices
 </div>
 
 
@@ -1664,7 +1660,7 @@ $(Create-Table $Inventory.Storage)
 <div class="card">
 
 <div class="card-title">
-📂 Disk Partitions
+ðŸ“‚ Disk Partitions
 </div>
 
 
@@ -1689,7 +1685,7 @@ $HTML += @"
 <div class="card">
 
 <div class="card-title">
-🎮 Graphics Processing Unit
+Graphics Processing Unit
 </div>
 
 
@@ -1714,7 +1710,7 @@ $HTML += @"
 <div class="card">
 
 <div class="card-title">
-🌐 Network Information
+Network Information
 </div>
 
 
@@ -1739,7 +1735,7 @@ $HTML += @"
 <div class="card">
 
 <div class="card-title">
-🔐 Security Status
+Security Status
 </div>
 
 
@@ -1826,7 +1822,7 @@ $HTML += @"
 <div class="card">
 
 <div class="card-title">
-📦 Installed Software
+Installed Software
 </div>
 
 
@@ -1882,7 +1878,7 @@ $HTML += @"
 <div class="card">
 
 <div class="card-title">
-📊 Inventory Summary
+Computer Inventory Report
 </div>
 
 
@@ -2038,4 +2034,4 @@ Write-Host ""
 
 Write-Host "Finished."
 
-Pause
+Write-Host "Press Ctrl+C to exit."
