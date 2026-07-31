@@ -418,144 +418,100 @@ $Inventory.Windows = [ordered]@{
 }
 
 # -------------------------------
-# Microsoft Office License Status
+# Microsoft Office Information
 # -------------------------------
 
-$Inventory.OfficeLicense = [ordered]@{
+$Inventory.Office = [ordered]@{
 
-    Status = "Not Found"
+    Installed = "No"
 
-    ActivationType = "Not Found"
+    Product = "Not Found"
 
-    LicenseName = "Not Found"
+    Version = "Not Found"
 
-    Channel = "Not Found"
+    Architecture = "Not Found"
 
-    ActivationID = "Not Found"
+    InstallType = "Not Found"
 
 }
 
 
 
-# Locate OSPP.VBS
+$OfficeRegistryPaths = @(
 
-$OSPPPaths = @(
+"HKLM:\SOFTWARE\Microsoft\Office\ClickToRun\Configuration",
 
-"${env:ProgramFiles}\Microsoft Office\Office16\OSPP.VBS",
+"HKLM:\SOFTWARE\WOW6432Node\Microsoft\Office\ClickToRun\Configuration",
 
-"${env:ProgramFiles(x86)}\Microsoft Office\Office16\OSPP.VBS",
+"HKLM:\SOFTWARE\Microsoft\Office\16.0\Common\InstallRoot",
 
-"${env:ProgramFiles}\Microsoft Office\root\Office16\OSPP.VBS",
-
-"${env:ProgramFiles(x86)}\Microsoft Office\root\Office16\OSPP.VBS"
+"HKLM:\SOFTWARE\WOW6432Node\Microsoft\Office\16.0\Common\InstallRoot"
 
 )
 
 
 
-foreach($OSPP in $OSPPPaths)
+foreach ($Path in $OfficeRegistryPaths)
 {
 
-    if(Test-Path $OSPP)
+    if(Test-Path $Path)
     {
 
         try
         {
 
-            $LicenseInfo =
-            cscript.exe //Nologo $OSPP /dstatus
+            $Office =
+            Get-ItemProperty $Path
 
 
 
-            foreach($Line in $LicenseInfo)
+            $Inventory.Office.Installed =
+            "Yes"
+
+
+
+            if($Office.ProductReleaseIds)
             {
 
-                if($Line -match "LICENSE STATUS")
-                {
+                $Inventory.Office.Product =
+                $Office.ProductReleaseIds
 
-                    $Inventory.OfficeLicense.Status =
-                    ($Line -split ":")[1].Trim()
-
-                }
+            }
 
 
 
-                if($Line -match "LICENSE NAME")
-                {
+            if($Office.Version)
+            {
 
-                    $LicenseName =
-                    ($Line -split ":")[1].Trim()
+                $Inventory.Office.Version =
+                $Office.Version
 
-
-
-                    $Inventory.OfficeLicense.LicenseName =
-                    $LicenseName
+            }
 
 
 
-                    # Determine Activation Type
+            if($Office.Platform)
+            {
 
-                    if($LicenseName -match "O365|M365|Subscription")
-                    {
+                $Inventory.Office.Architecture =
+                $Office.Platform
 
-                        $Inventory.OfficeLicense.ActivationType =
-                        "Microsoft 365 Subscription"
-
-                    }
-
-                    elseif($LicenseName -match "ProPlus2021|Professional2021")
-                    {
-
-                        $Inventory.OfficeLicense.ActivationType =
-                        "Office Professional Plus 2021"
-
-                    }
-
-                    elseif($LicenseName -match "LTSC2024")
-                    {
-
-                        $Inventory.OfficeLicense.ActivationType =
-                        "Office LTSC 2024"
-
-                    }
-
-                    elseif($LicenseName -match "VL|Volume")
-                    {
-
-                        $Inventory.OfficeLicense.ActivationType =
-                        "Volume License / KMS"
-
-                    }
-
-                    elseif($LicenseName -match "Retail")
-                    {
-
-                        $Inventory.OfficeLicense.ActivationType =
-                        "Retail"
-
-                    }
-
-                }
+            }
 
 
 
-                if($Line -match "LICENSE CHANNEL")
-                {
+            if($Path -like "*ClickToRun*")
+            {
 
-                    $Inventory.OfficeLicense.Channel =
-                    ($Line -split ":")[1].Trim()
+                $Inventory.Office.InstallType =
+                "Click-to-Run"
 
-                }
+            }
+            else
+            {
 
-
-
-                if($Line -match "Activation ID")
-                {
-
-                    $Inventory.OfficeLicense.ActivationID =
-                    ($Line -split ":")[1].Trim()
-
-                }
+                $Inventory.Office.InstallType =
+                "MSI"
 
             }
 
@@ -564,18 +520,11 @@ foreach($OSPP in $OSPPPaths)
         catch
         {
 
-            $Inventory.OfficeLicense.Status =
-            "Unable to read license"
-
         }
-
-
-        break
 
     }
 
 }
-
 
 
 # -------------------------------
