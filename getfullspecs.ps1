@@ -389,10 +389,7 @@ $Inventory.Computer = [ordered]@{
 
     Model = $ComputerSystem.Model
 
-    $RegisteredUsers = Get-LocalUser |
-    Select-Object -ExpandProperty Name
-
-    Username = $RegisteredUsers -join ", "
+    Username = "$($ComputerSystem.UserName)"
 
     Domain = $ComputerSystem.Domain
 
