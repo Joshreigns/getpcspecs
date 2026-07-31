@@ -1278,6 +1278,65 @@ catch
 }
 
 
+# ============================================================
+# ANYDESK INFORMATION
+# ============================================================
+
+
+$Inventory.AnyDesk = [ordered]@{
+
+    Installed = $false
+
+    ID = "Not Found"
+
+}
+
+
+
+$AnyDeskPath = "C:\ProgramData\AnyDesk"
+
+
+
+if (Test-Path $AnyDeskPath)
+{
+
+    $Inventory.AnyDesk.Installed = $true
+
+
+    $ConfFiles =
+    Get-ChildItem `
+    -Path $AnyDeskPath `
+    -Filter "*.conf" `
+    -ErrorAction SilentlyContinue
+
+
+
+    foreach ($file in $ConfFiles)
+    {
+
+        $Content =
+        Get-Content `
+        $file.FullName `
+        -ErrorAction SilentlyContinue
+
+
+
+        foreach ($line in $Content)
+        {
+
+            if ($line -match "ad\.anynet\.id")
+            {
+
+                $Inventory.AnyDesk.ID =
+                $line.Split('=')[1].Trim()
+
+            }
+
+        }
+
+    }
+
+}
 
 Write-Host "Software and security information collected." -ForegroundColor Green
 
@@ -1692,7 +1751,58 @@ $(Create-Table $Inventory.Network)
 
 
 
+# ============================================================
+# ANYDESK SECTION
+# ============================================================
 
+
+$HTML += @"
+
+
+<div class="card">
+
+<div class="card-title">
+Remote Access Information
+</div>
+
+
+<div class="grid">
+
+
+<div class="item">
+
+<div class="label">
+AnyDesk Installed
+</div>
+
+<div class="value">
+$($Inventory.AnyDesk.Installed)
+</div>
+
+</div>
+
+
+
+<div class="item">
+
+<div class="label">
+AnyDesk ID
+</div>
+
+<div class="value">
+$($Inventory.AnyDesk.ID)
+</div>
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+"@
 
 # ============================================================
 # SECURITY SECTION
