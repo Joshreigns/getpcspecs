@@ -344,7 +344,7 @@ tr:hover {
 <div class="header">
 
 <h1>
-Ã°Å¸â€“Â¥ Computer Inventory Report
+ðŸ–¥ Computer Inventory Report
 </h1>
 
 <p>
@@ -1420,7 +1420,7 @@ $HTML += @"
 <div class="card">
 
 <div class="card-title">
-ðŸ“Œ System Summary
+📌 System Summary
 </div>
 
 
@@ -1530,7 +1530,7 @@ $HTML += @"
 <div class="card">
 
 <div class="card-title">
-âš™ CPU Information
+⚙ CPU Information
 </div>
 
 
@@ -1589,7 +1589,7 @@ $HTML += @"
 <div class="card">
 
 <div class="card-title">
-ðŸ§  Memory Information
+🧠 Memory Information
 </div>
 
 
@@ -1651,7 +1651,7 @@ $HTML += @"
 <div class="card">
 
 <div class="card-title">
-ðŸ’¾ Storage Devices
+💾 Storage Devices
 </div>
 
 
@@ -1664,7 +1664,7 @@ $(Create-Table $Inventory.Storage)
 <div class="card">
 
 <div class="card-title">
-ðŸ“‚ Disk Partitions
+📂 Disk Partitions
 </div>
 
 
@@ -1689,7 +1689,7 @@ $HTML += @"
 <div class="card">
 
 <div class="card-title">
-ðŸŽ® Graphics Processing Unit
+🎮 Graphics Processing Unit
 </div>
 
 
@@ -1714,7 +1714,7 @@ $HTML += @"
 <div class="card">
 
 <div class="card-title">
-ðŸŒ Network Information
+🌐 Network Information
 </div>
 
 
@@ -1739,7 +1739,7 @@ $HTML += @"
 <div class="card">
 
 <div class="card-title">
-ðŸ” Security Status
+🔐 Security Status
 </div>
 
 
@@ -1826,7 +1826,7 @@ $HTML += @"
 <div class="card">
 
 <div class="card-title">
-ðŸ“¦ Installed Software
+📦 Installed Software
 </div>
 
 
@@ -1882,7 +1882,7 @@ $HTML += @"
 <div class="card">
 
 <div class="card-title">
-ðŸ“Š Inventory Summary
+📊 Inventory Summary
 </div>
 
 
