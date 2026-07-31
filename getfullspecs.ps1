@@ -12,7 +12,11 @@ Clear-Host
 # Script Location
 # -------------------------------
 
-$ScriptPath = $env:TEMP
+$ScriptPath = "C:\ComputerInventory"
+
+if (!(Test-Path $ScriptPath)) {
+    New-Item -Path $ScriptPath -ItemType Directory | Out-Null
+}
 
 $ComputerName = $env:COMPUTERNAME
 
@@ -385,7 +389,10 @@ $Inventory.Computer = [ordered]@{
 
     Model = $ComputerSystem.Model
 
-    Username = "$($ComputerSystem.UserName)"
+    $LocalUsers = Get-LocalUser |
+    Select-Object -ExpandProperty Name
+
+    Username = $LocalUsers -join ", "
 
     Domain = $ComputerSystem.Domain
 
@@ -682,8 +689,32 @@ foreach ($Disk in $Disks)
         Interface =
             $Disk.InterfaceType
 
-        MediaType =
-            $Disk.MediaType
+
+
+
+$DriveType = "Unknown"
+
+try = {
+
+    $PhysicalDisk = Get-PhysicalDisk |
+        Where-Object {
+            $_.FriendlyName -like "*$($Disk.Model)*"
+        }
+
+    if ($PhysicalDisk.BusType -eq "NVMe") {
+        $DriveType = "NVMe (M.2 SSD)"
+    }
+    elseif ($PhysicalDisk.MediaType -eq "SSD") {
+        $DriveType = "SATA SSD"
+    }
+    elseif ($PhysicalDisk.MediaType -eq "HDD") {
+        $DriveType = "HDD"
+    }
+}
+catch = {
+}
+
+MediaType = $DriveType
 
         Size =
             Convert-Size $Disk.Size
@@ -1466,6 +1497,7 @@ Operating System
 
 <div class="value">
 $($Inventory.Windows.Caption)
+($($Inventory.Windows.Architecture))
 </div>
 
 </div>
