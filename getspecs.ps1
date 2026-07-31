@@ -412,7 +412,7 @@ $Inventory.Windows = [ordered]@{
 
     Build = $OS.BuildNumber
 
-    Architecture = $OS.OSArchitecture
+    Architecture = $OSInfo.OSArchitecture
 
     InstallDate = $OS.InstallDate
 
