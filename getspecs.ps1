@@ -340,7 +340,7 @@ tr:hover {
 <div class="header">
 
 <h1>
-Ã°Å¸â€“Â¥ Computer Inventory Report
+Computer Inventory Report
 </h1>
 
 <p>
@@ -1658,7 +1658,7 @@ $(Create-Table $Inventory.Storage)
 <div class="card">
 
 <div class="card-title">
-ðŸ“‚ Disk Partitions
+Disk Partitions
 </div>
 
 
