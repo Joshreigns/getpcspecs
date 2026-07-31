@@ -417,6 +417,114 @@ $Inventory.Windows = [ordered]@{
 
 }
 
+# -------------------------------
+# Microsoft Office Information
+# -------------------------------
+
+$Inventory.Office = [ordered]@{
+
+    Installed = "No"
+
+    Product = "Not Found"
+
+    Version = "Not Found"
+
+    Architecture = "Not Found"
+
+    InstallType = "Not Found"
+
+}
+
+
+
+$OfficeRegistryPaths = @(
+
+"HKLM:\SOFTWARE\Microsoft\Office\ClickToRun\Configuration",
+
+"HKLM:\SOFTWARE\WOW6432Node\Microsoft\Office\ClickToRun\Configuration",
+
+"HKLM:\SOFTWARE\Microsoft\Office\16.0\Common\InstallRoot",
+
+"HKLM:\SOFTWARE\WOW6432Node\Microsoft\Office\16.0\Common\InstallRoot"
+
+)
+
+
+
+foreach ($Path in $OfficeRegistryPaths)
+{
+
+    if(Test-Path $Path)
+    {
+
+        try
+        {
+
+            $Office =
+            Get-ItemProperty $Path
+
+
+
+            $Inventory.Office.Installed =
+            "Yes"
+
+
+
+            if($Office.ProductReleaseIds)
+            {
+
+                $Inventory.Office.Product =
+                $Office.ProductReleaseIds
+
+            }
+
+
+
+            if($Office.Version)
+            {
+
+                $Inventory.Office.Version =
+                $Office.Version
+
+            }
+
+
+
+            if($Office.Platform)
+            {
+
+                $Inventory.Office.Architecture =
+                $Office.Platform
+
+            }
+
+
+
+            if($Path -like "*ClickToRun*")
+            {
+
+                $Inventory.Office.InstallType =
+                "Click-to-Run"
+
+            }
+            else
+            {
+
+                $Inventory.Office.InstallType =
+                "MSI"
+
+            }
+
+
+        }
+        catch
+        {
+
+        }
+
+    }
+
+}
 
 
 
@@ -1528,7 +1636,27 @@ Operating System
 <div class="value">
 $($Inventory.Windows.Caption) $($Inventory.Windows.Architecture)
 </div>
+
 </div>
+
+
+
+<div class="item">
+
+<div class="label">
+Microsoft Office
+</div>
+
+<div class="value">
+$($Inventory.Office.Product)
+<br>
+$($Inventory.Office.Version)
+<br>
+$($Inventory.Office.Architecture)
+</div>
+
+</div>
+
 </div>
 </div>
 </div>
