@@ -12,7 +12,11 @@ Clear-Host
 # Script Location
 # -------------------------------
 
-$ScriptPath = $env:TEMP
+$ScriptPath = "C:\ComputerInventory"
+
+if (!(Test-Path $ScriptPath)) {
+    New-Item -Path $ScriptPath -ItemType Directory | Out-Null
+}
 
 $ComputerName = $env:COMPUTERNAME
 
